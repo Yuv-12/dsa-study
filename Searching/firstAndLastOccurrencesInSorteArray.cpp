@@ -46,3 +46,19 @@ vector<int> find(vector<int> &arr, int x)
 {
     return {first_occ(arr, x), last_occ(arr, x)};
 }
+
+
+/*We can also solve this using c++ STL lower and upper bound function in O(log n) time complexity*/
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> find(vector<int> &arr, int x)
+{
+    auto first = lower_bound(arr.begin(),arr.end(),x);
+    auto last = upper_bound(arr.begin(),arr.end(),x);
+    if(first == arr.end() || *first != x)
+        return {-1,-1};
+    
+    int firstIndex = first - arr.begin();
+    int lastIndex = last - arr.begin() - 1;
+    return {firstIndex,lastIndex};
+}
