@@ -3,7 +3,7 @@ The task is to find the count of elements in the array that appear more than n/k
 #include <bits/stdc++.h>
 using namespace std;
 // using hashing in O(n) time and O(n) space complexity
-int countOccurence(vector<int> &arr, int k)
+int countOccurrence(vector<int> &arr, int k)
 {
     int n = arr.size();
     unordered_map<int, int> freq;
