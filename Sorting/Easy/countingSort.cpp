@@ -59,3 +59,29 @@ where:
 n = number of elements
 k = maxElement - minElement + 1
 */
+
+/*Given a string s consisting of lowercase english letters,
+arrange all its letters in lexicographical order using Counting Sort.*/
+
+string countSort(string s)
+{
+
+    int maxEl = *max_element(s.begin(), s.end());
+    int minEl = *min_element(s.begin(), s.end());
+
+    int range = maxEl - minEl + 1;
+    vector<int> count(range, 0);
+    string output(s.size(), ' ');
+    for (int i = 0; i < s.size(); i++)
+        count[s[i] - minEl]++;
+
+    for (int i = 1; i < range; i++)
+        count[i] = count[i] + count[i - 1];
+
+    for (int i = s.size() - 1; i >= 0; i--)
+    {
+        output[count[s[i] - minEl] - 1] = s[i];
+        count[s[i] - minEl]--;
+    }
+    return output;
+}
