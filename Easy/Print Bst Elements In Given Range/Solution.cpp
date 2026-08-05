@@ -12,25 +12,19 @@ public:
 class Solution {
   public:
  
-  void inorder(Node *root,int low,int high,set<int> &st)
+  void inorder(Node *root,int low,int high,vector<int> &res)
   {
       if(root==NULL)
         return;
         
-        inorder(root->left,low,high,st);
+        inorder(root->left,low,high,res);
         if(root->data >= low && root->data<=high)
-            st.insert(root->data);
-        inorder(root->right,low,high,st);
+            res.push_back(root->data);
+        inorder(root->right,low,high,res);
   }
     vector<int> nodesInRange(Node *root, int low, int high) {
-        // code here 
-       set<int> st;
-        inorder(root,low,high,st);
-        vector<int> res;
-        for(auto it = st.begin();it!=st.end();it++)
-        {
-            res.push_back(*it);
-        }
+         vector<int> res;
+        inorder(root,low,high,res);
         return res;
     }
 };
