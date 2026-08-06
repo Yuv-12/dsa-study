@@ -14,26 +14,29 @@ class Node {
 
 class Solution {
   public:
-  void inorder(Node *root,unordered_set<int> &st)
+  void inorder(Node *root, vector<int> &v)
   {
       if(root==NULL)
         return;
-    inorder(root->left,st);
-    st.insert(root->data);
-    inorder(root->right,st);
+    inorder(root->left,v);
+    v.push_back(root->data);
+    inorder(root->right,v);
   }
     bool findTarget(Node *root, int target) {
         // your code here.
-        unordered_set<int> st;
-        inorder(root,st);
-        if(st.size()>1)
+        vector<int> v;
+        inorder(root,v);
+        int n = v.size();
+        int i = 0;
+        int j = n-1;
+        while(i<j)
         {
-             for(auto it = st.begin();it!=st.end();it++)
-        {
-            int toSearch = target - *it;
-            if(st.find(toSearch)!=st.end())
+            if(v[i]+v[j]==target)
                 return true;
-        }
+            else if(v[i]+v[j] > target)
+                j--;
+            else
+                i++;
         }
        
         return false;
