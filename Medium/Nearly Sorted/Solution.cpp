@@ -3,13 +3,19 @@ class Solution {
     void nearlySorted(vector<int>& arr, int k) {
         // code here
         priority_queue<int,vector<int>,greater<int>> q;
-        for(int x: arr)
-            q.push(x);
+        for(int i = 0;i<k;i++)
+            q.push(arr[i]);
         
-        int i = 0;
+        int i;
+        for(i= k;i<arr.size();i++)
+        {
+            q.push(arr[i]);
+            arr[i-k] = q.top();
+            q.pop();
+        }
         while(!q.empty())
         {
-            arr[i] = q.top();
+            arr[i-k] = q.top();
             q.pop();
             i++;
         }
