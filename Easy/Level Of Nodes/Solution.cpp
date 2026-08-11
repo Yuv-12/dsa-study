@@ -16,7 +16,6 @@ class Solution {
         queue<pair<int,int>> q;
         q.push({0,0});
         visited[0] = true;
-        int level = 0;
         while(!q.empty())
         {
             int u = q.front().first;
