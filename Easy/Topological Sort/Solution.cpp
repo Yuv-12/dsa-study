@@ -1,38 +1,38 @@
 class Solution {
   public:
-    void addEdge(vector<vector<int>>&adj,int u,int v,vector<int>&indegree)
-    {
-        adj[u].push_back(v);
-        indegree[v]++;
-    }
+  void addEdge(vector<vector<int>>&adj,int u,int v)
+  {
+      adj[u].push_back(v);
+  }
+  void DFS(vector<vector<int>>&adj,int src,vector<bool> &visited,stack<int>&st)
+  {
+      visited[src] = true;
+      for(int v : adj[src])
+      {
+          if(!visited[v])
+            DFS(adj,v,visited,st);
+      }
+      st.push(src);
+  }
     vector<int> topoSort(int V, vector<vector<int>>& edges) {
         // code here
-        vector<int> res;
         vector<vector<int>> adj(V);
-        vector<int>  indegree(V,0);
         for(int i = 0;i<edges.size();i++)
         {
-            addEdge(adj,edges[i][0],edges[i][1],indegree);
+            addEdge(adj,edges[i][0],edges[i][1]);
         }
-        queue<int> q;
+        vector<bool> visited(V,false);
+        stack<int> st;
         for(int i = 0;i<V;i++)
         {
-            if(indegree[i]==0)
-                q.push(i);
-                
+            if(!visited[i])
+                DFS(adj,i,visited,st);
         }
-        while(!q.empty())
+        vector<int> res;
+        while(!st.empty())
         {
-            int u = q.front();
-            q.pop();
-            res.push_back(u);
-            for( int v : adj[u])
-            {
-                indegree[v]--;
-                if(indegree[v]==0)
-                    q.push(v);
-            }
-            
+            res.push_back(st.top());
+            st.pop();
         }
         return res;
     }
