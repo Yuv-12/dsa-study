@@ -2,35 +2,39 @@ class Solution {
   public:
     int spanningTree(int V, vector<vector<int>>& edges) {
         // code here
-        int res = 0;
-        vector<vector<int>> graph(V,vector<int>(V,0));
-        for(int i = 0;i<edges.size();i++)
+        vector<vector<pair<int,int>>> adj(V);
+        for(auto edge : edges)
         {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            graph[u][v] = edges[i][2];
-            graph[v][u] = edges[i][2];
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            adj[u].push_back({v,w});
+            adj[v].push_back({u,w});
         }
         
-        vector<int> key(V,INT_MAX);
-        key[0] = 0;
-        vector<bool> mstSet(V,false);
-        for(int count = 0;count<V;count++)
+        priority_queue<pair<int,int>,
+                        vector<pair<int,int>>,
+                        greater<pair<int,int>>
+                        > pq;
+        
+        vector<bool> visited(V,false);
+        pq.push({0,0});
+        int res = 0;
+        while(!pq.empty())
         {
-            int u = -1;
-            for(int i =0;i<V;i++)
+            int u = pq.top().second;
+            int wt = pq.top().first;
+            pq.pop();
+            if(visited[u])
+                continue;
+            visited[u] = true;
+            res += wt;
+            for(auto edge : adj[u])
             {
-                if(!mstSet[i] && (u==-1 || key[i] < key[u]))
-                    u = i;
-            }
-            mstSet[u]= true;
-            res = res+key[u];
-            for(int v = 0;v<V;v++)
-            {
-                if(graph[u][v]!= 0 && !mstSet[v])
-                {
-                    key[v] = min(key[v],graph[u][v]);
-                }
+                int v = edge.first;
+                int weight = edge.second;
+                if(!visited[v])
+                    pq.push({weight,v});
             }
         }
         return res;
