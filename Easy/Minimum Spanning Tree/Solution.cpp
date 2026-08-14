@@ -1,42 +1,59 @@
 class Solution {
   public:
-    int spanningTree(int V, vector<vector<int>>& edges) {
+  int find(vector<int>&parent,int i )
+  {
+      if(parent[i] == i)
+        return i;
+        return parent[i] = find(parent,parent[i]);
+  }
+  
+  void Union(vector<int>&parent,vector<int>&rank,int i,int j)
+  {
+      int irep = find(parent,i);
+      int jrep = find(parent,j);
+      if(irep==jrep)
+        return;
+        else
+        {
+            if(rank[irep] < rank[jrep])
+                parent[irep] = jrep;
+            else if(rank[irep]>rank[jrep])
+                parent[jrep] = irep;
+            else
+            {
+                parent[jrep] = irep;
+                rank[irep]++;
+            }
+        }
+  }
+  
+  static bool myCMP(vector<int>&a,vector<int>&b)
+  {
+      return a[2] < b[2];
+  }
+    int kruskalsMST(int V, vector<vector<int>> &edges) {
         // code here
-        vector<vector<pair<int,int>>> adj(V);
+        vector<int> parent(V);
+        vector<int> rank(V,0);
+        sort(edges.begin(),edges.end(),myCMP);
+        for(int i = 0;i<V;i++)
+        {
+            parent[i] = i;
+        }
+        int minCost = 0;
         for(auto edge : edges)
         {
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
-            adj[u].push_back({v,w});
-            adj[v].push_back({u,w});
-        }
-        
-        priority_queue<pair<int,int>,
-                        vector<pair<int,int>>,
-                        greater<pair<int,int>>
-                        > pq;
-        
-        vector<bool> visited(V,false);
-        pq.push({0,0});
-        int res = 0;
-        while(!pq.empty())
-        {
-            int u = pq.top().second;
-            int wt = pq.top().first;
-            pq.pop();
-            if(visited[u])
-                continue;
-            visited[u] = true;
-            res += wt;
-            for(auto edge : adj[u])
+            int urep = find(parent,u);
+            int vrep = find(parent,v);
+            if(urep!=vrep)
             {
-                int v = edge.first;
-                int weight = edge.second;
-                if(!visited[v])
-                    pq.push({weight,v});
+                minCost += w;
+                Union(parent,rank,u,v);
             }
         }
-        return res;
+        return minCost;
     }
 };
