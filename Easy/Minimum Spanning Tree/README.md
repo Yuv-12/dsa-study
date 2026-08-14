@@ -1,5 +1,5 @@
 
-# [Minimum Spanning Tree](https://www.geeksforgeeks.org/batch/cip-new-1/track/P100-Graph/problem/minimum-spanning-tree)
+# [Minimum Spanning Tree](https://www.geeksforgeeks.org/batch/cip-new-1/track/P100-Disjoint-Set/problem/minimum-spanning-tree3233)
 
 ## Difficulty: Easy
 
