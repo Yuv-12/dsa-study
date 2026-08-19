@@ -1,5 +1,5 @@
 
-# [Majority Element](https://www.geeksforgeeks.org/problems/majority-element-1587115620/1#expected-approach-using-moores-voting-algorithm-on-time-and-o1-space)
+# [Majority Element](https://www.geeksforgeeks.org/problems/majority-element-1587115620/1)
 
 ## Difficulty: Medium
 
