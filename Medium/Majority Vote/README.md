@@ -1,5 +1,5 @@
 
-# [Majority Vote](https://www.geeksforgeeks.org/problems/majority-vote/1#expected-approach-moores-voting-algorithm-on-time-and-o1-space)
+# [Majority Vote](https://www.geeksforgeeks.org/problems/majority-vote/1)
 
 ## Difficulty: Medium
 
