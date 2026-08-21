@@ -2,7 +2,7 @@ class Solution {
   public:
     int nthFibonacci(int n) {
         // code here
-        vector<int> f(n+2);
+        vector<int> f(n+1);
         f[0] = 0;
         f[1] = 1;
         
