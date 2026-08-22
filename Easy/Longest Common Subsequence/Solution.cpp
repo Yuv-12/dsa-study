@@ -6,7 +6,7 @@ class Solution {
         return 0;
     
     if(s1[m-1] == s2[n-1])
-        return 1+solve(s1,s2,m-1,n-1,dp);
+        return dp[m][n] = 1+solve(s1,s2,m-1,n-1,dp);
     if(dp[m][n]!=-1)
         return dp[m][n];
     return dp[m][n] = max(solve(s1,s2,m,n-1,dp),solve(s1,s2,m-1,n,dp));
